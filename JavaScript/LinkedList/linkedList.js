@@ -46,18 +46,20 @@ class LinkedList {
     }
 }
 
-// test
-const linkedList = new LinkedList()
-console.log(linkedList) // LinkedList { head: null }
+// // test
+// const linkedList = new LinkedList()
+// console.log(linkedList) // LinkedList { head: null }
 
-linkedList.append(1);
-linkedList.append(2);
-linkedList.append(3)
+// linkedList.append(1);
+// linkedList.append(2);
+// linkedList.append(3)
 
-console.log(JSON.stringify(linkedList)) // {"head":{"value":1,"next":{"value":2,"next":{"value":3,"next":null}}}}
-console.log(linkedList.toArray()) // [ 1, 2, 3 ]
+// console.log(JSON.stringify(linkedList)) // {"head":{"value":1,"next":{"value":2,"next":{"value":3,"next":null}}}}
+// console.log(linkedList.toArray()) // [ 1, 2, 3 ]
 
-const reverseLinedList = linkedList.reverse()
+// const reverseLinedList = linkedList.reverse()
 
-console.log(JSON.stringify(reverseLinedList)) // {"head":{"value":3,"next":{"value":2,"next":{"value":1,"next":null}}}}
-console.log(reverseLinedList.toArray()) // [ 3, 2, 1 ]
+// console.log(JSON.stringify(reverseLinedList)) // {"head":{"value":3,"next":{"value":2,"next":{"value":1,"next":null}}}}
+// console.log(reverseLinedList.toArray()) // [ 3, 2, 1 ]
+
+module.exports = LinkedList
