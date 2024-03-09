@@ -46,7 +46,7 @@ findPalindromeString(str)
 console.log(arr)
 
 
-/////// !!!!!!!!!!!! 写完了执行才发现，这是个错误的示例：时间复杂度虽然为 O(n^2)，时间复杂度降低了，运行时间并不优于方法一 !!!!!!!!!!
+/////// !!!!!!!!!!!! 写完了执行才发现，这是个错误的示例：时间复杂度仍然为 O(n^2 * m) !!!!!!!!!!
 /////// !!!!!!!!!!!! 而且字符串太大的情况下，会消耗大量内存 !!!!!!!!!!
 // #### 方法二：显然判断 回文字符串 的循环是可以省略的，可以降低时间复杂度到O(n^2)
 // 如何省略：比如我们把字符串对应的 回文字符串 存在数组里，直接做全等比较，省去第三层循环
@@ -69,6 +69,7 @@ const findPalindromeStringUseArray = (str) => {
         }
     }
 
+    // 此处的时间复杂度为 n^2 * m，此处时间复杂度未降低，反而多用了内存
     const arrInvertString = arr.map(item => {
         const len = item.length
         let str = ''
@@ -78,6 +79,7 @@ const findPalindromeStringUseArray = (str) => {
         return str
     })
 
+    // n^2
     const targetArr = arr.filter((item, index) => {
         if (item === arrInvertString[index]) return item
     })
