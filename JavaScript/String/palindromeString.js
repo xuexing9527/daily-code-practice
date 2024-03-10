@@ -107,3 +107,60 @@ const findLongestStr = () => {
 
 // 最长 回文字符串
 console.log(findLongestStr(arr))
+
+// 动态规划
+const findPalindromeStringUseDP = (str) => {
+    const arr = []
+    const time = new Date().getTime()
+    // 二维数组去储存拼接可能的字符串
+    const len = str.length
+    const dp = new Array(len).fill(new Array(len).fill(false))
+    // false 代表是否为回文字符串，默认false
+    //      a       b       a       d
+    //    [
+    // a    [false, false, false, false],
+    // b    [false, false, false, false],
+    // a    [false, false, false, false],
+    // d    [false, false, false, false]
+    //     ]
+
+    // 示例：
+    //          a   b    a     d
+    //    [
+    // a    [   a, ab, aba, abad],
+    // b    [  ba,  b,  ba,  bad],
+    // a    [ aba, ba,   a,   ad],
+    // d    [abad, bad, ad,    d]
+    //     ]
+    // 我们定义数组为dp, i 为横坐标，j 为纵坐标
+    // 观察示例：符合回文字符串特征 dp[i, i] 或 dp[j, j]为单字母，即对角线处的单字母：a, b, a, d
+    // 从对角线字母出发，首尾各增加相同的字母，即为回文字符串：对应对角线的 右上左下 位置，如:
+    // aba, 为 对角线字母 b 的右上左下
+    // bad, 为 对角线字母 a (第三行列交汇处)的右上左下
+    // 我们只需定义出这个规则，即可完成回文字符串的查找工作，即：
+    //     首尾字母想等：str[i] === str[j]
+    //     str中，i 和 j 位置，只差 1， j - i === 1
+    //     且：右上 dp[i + 1][j - 1]
+
+    // 对角线处单字母为 true
+    for (let i = 0; i < len - 1; i += 1) {
+        dp[i][i] = true
+    }
+
+    for (let i = 0; i < len -1 ; i += 1) {
+        for (let j = 0; j < len - 1; j += 1) {
+            if ((str[i] === str[j]) && (j - i === 1 || dp[i + 1], [j - 1])) {
+                dp[i][j] = true
+                const targetStr = str.substr(i, j)
+                arr.push(targetStr)
+            }
+        }
+    }
+
+    const runTime = new Date().getTime() - time
+    console.log(`dp方法，O(n^2)找到所有回文字符串的时间为： ${runTime} ms`)
+    console.log(arr)
+    console.log(dp)
+}
+
+findPalindromeStringUseDP(str)
