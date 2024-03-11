@@ -1,11 +1,15 @@
-const str = 'ababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejz';
-// const str = 'ababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejz';
+// 100 长度
+const str = 'ababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzxzjekejz';
+// 200 长度
+// const str = 'ababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzxzjekejz';
+// 大于 200 长度，736 长度
 // const str = 'ababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejzababcefddfcrffrcshncjijkkjijimnasanmbcxzjekejz';
+const LEN = 200
 
-// #### 方法一：暴力解法：时间复杂度 O(n^2 * m)，其中 m 为最长字符串的长度 = n
+// #### 方法一：暴力解法：时间复杂度 O(n^3)
 // 回文字符串：从左向右读和从右向左读是一样的字符串
-const arr = []
 const findPalindromeString = (str) => {
+    const arr = []
     const time = new Date().getTime()
     // 从第一个字符往后，比较每一个字符串
     // a 下一个字符是 any ，比较 a + any ?== any + a
@@ -37,13 +41,15 @@ const findPalindromeString = (str) => {
     }
 
     const runTime = new Date().getTime() - time
-    console.log(`O(n^2 * m)找到所有回文字符串的时间为： ${runTime} ms`)
+    console.log(`findPalindromeString 找到所有回文字符串的时间为： ${runTime} ms`)
+    console.log(`回文字符串的个数为：${arr.length}`)
+    // 打印所有回文字符串
+    console.log(arr)
     return arr
 }
 
 // 所有 回文字符串
 findPalindromeString(str)
-console.log(arr)
 
 
 /////// !!!!!!!!!!!! 写完了执行才发现，这是个错误的示例：时间复杂度仍然为 O(n^2 * m) !!!!!!!!!!
@@ -85,28 +91,19 @@ const findPalindromeStringUseArray = (str) => {
     })
 
     const runTime = new Date().getTime() - time
-    console.log(`O(n^2)找到所有回文字符串的时间为： ${runTime} ms`)
-    // 所有回文字符串
+    console.log(`findPalindromeStringUseArray 找到所有回文字符串的时间为： ${runTime} ms`)
+    console.log(`回文字符串的个数为：${targetArr.length}`)
+    // 打印所有回文字符串
     console.log(targetArr)
     return targetArr
 }
 
-findPalindromeStringUseArray(str)
-
-
-// #### 找最长回文字符串，可能是多个
-const findLongestStr = () => {
-    let maxLength = 0
-    arr.forEach((item) => {
-        if (item.length > maxLength) {
-            maxLength = item.length
-        }
-    })
-    return arr.filter(item => (item.length === maxLength))
+// str 长度太长，电脑内存爆了。这里设置一个不高于 200 长度
+if (str.length <= LEN) {
+    findPalindromeStringUseArray(str)
+} else {
+    console.log(`str长度大于${LEN}，findPalindromeStringUseArray 方法会暂用大量内存，已淘汰！`)
 }
-
-// 最长 回文字符串
-console.log(findLongestStr(arr))
 
 // 动态规划
 const findPalindromeStringUseDP = (str) => {
@@ -114,7 +111,15 @@ const findPalindromeStringUseDP = (str) => {
     const time = new Date().getTime()
     // 二维数组去储存拼接可能的字符串
     const len = str.length
-    const dp = new Array(len).fill(new Array(len).fill(false))
+    // -------------------------------------------------------------- //
+    // // 这行代码会引发错误: fill 传递引用类型的数据时，会传递引用
+    // const dp = new Array(len).fill(new Array(len).fill(false))
+
+    // // 这行代码会引发错误：new Array(len).map(...)，这里直接调用 map 方法，map 会跳过值 undefined 的元素，导致 map 方法中的回调不执行
+    //  const dp = new Array(len).map(item => new Array(len).fill(false))
+    // ------------------------------------------------------------- //
+    // 这是修正后的代码，创建一个二维数组，并填充 false
+     const dp = new Array(len).fill(false).map(item => new Array(len).fill(false))
     // false 代表是否为回文字符串，默认false
     //      a       b       a       d
     //    [
@@ -139,19 +144,19 @@ const findPalindromeStringUseDP = (str) => {
     // bad, 为 对角线字母 a (第三行列交汇处)的右上左下
     // 我们只需定义出这个规则，即可完成回文字符串的查找工作，即：
     //     首尾字母想等：str[i] === str[j]
-    //     str中，i 和 j 位置，只差 1， j - i === 1
-    //     且：右上 dp[i + 1][j - 1]
+    //     且：左下位置，dp[i + 1][j - 1] 为 true。这个位置就是，str 中 首尾 字母包含的 中间字符串 即：目标 str 中 [i + 1] 到 [j - 1]位置。是否为回文字符串，作为第二个必要条件
 
     // 对角线处单字母为 true
-    for (let i = 0; i < len - 1; i += 1) {
+    for (let i = 0; i < len; i += 1) {
         dp[i][i] = true
     }
 
-    for (let i = 0; i < len -1 ; i += 1) {
-        for (let j = 0; j < len - 1; j += 1) {
-            if ((str[i] === str[j]) && (j - i === 1 || dp[i + 1], [j - 1])) {
+    for (let j = 1; j < len; j += 1) {
+        for (let i = 0; i < j; i += 1) {
+            if (str[i] === str[j] && (dp[i + 1][j - 1] || j - i === 1)) {
                 dp[i][j] = true
-                const targetStr = str.substr(i, j)
+                // sbustr 两个参数对应（起始索引，提取的字符数）
+                const targetStr = str.substr(i, j - i + 1)
                 arr.push(targetStr)
             }
         }
@@ -159,8 +164,23 @@ const findPalindromeStringUseDP = (str) => {
 
     const runTime = new Date().getTime() - time
     console.log(`dp方法，O(n^2)找到所有回文字符串的时间为： ${runTime} ms`)
+    console.log(`回文字符串的个数为：${arr.length}`)
+    // 打印所有回文字符串
     console.log(arr)
-    console.log(dp)
 }
 
 findPalindromeStringUseDP(str)
+
+// // #### 找最长回文字符串，可能是多个
+// const findLongestStr = () => {
+//     let maxLength = 0
+//     arr.forEach((item) => {
+//         if (item.length > maxLength) {
+//             maxLength = item.length
+//         }
+//     })
+//     return arr.filter(item => (item.length === maxLength))
+// }
+
+// // 最长 回文字符串
+// console.log(findLongestStr(arr))
