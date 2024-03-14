@@ -21,9 +21,13 @@ const treeDiff = (tree1, tree2) => {
         // console.log(node)
         // 将 node 带入 tree 2
         if (node.children) {
+            // 调用阶段
+
             node.children.forEach(ele => {
                 recurrence(ele)
             });
+
+            // 回溯阶段
         }
         // 这里能拿到node
         console.log(node)
