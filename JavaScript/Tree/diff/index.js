@@ -16,7 +16,7 @@ const treeDiff = (tree1, tree2) => {
     // 新增 tree1 中没有，tree2 中有的 node
     // tree1 first level
 
-    const recurrence = (node) => {
+    const recursion = (node) => {
         // // 这里能拿到node
         // console.log(node)
         // 将 node 带入 tree 2
@@ -33,7 +33,7 @@ const treeDiff = (tree1, tree2) => {
         console.log(node)
     }
 
-    recurrence(tree1)
+    recursion(tree1)
 }
 
 treeDiff(tree1, tree2)

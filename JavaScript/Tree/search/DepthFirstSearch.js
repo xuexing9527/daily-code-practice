@@ -4,9 +4,8 @@
 const getTree = require('../tree')
 
 const depthFirstSearch = (treeNode) => {
-    // first time
+    // 递归调用阶段
     if (treeNode.children) {
-        // 递归调用阶段
         treeNode.children.forEach(child => {
             depthFirstSearch(child)
         });
@@ -15,5 +14,7 @@ const depthFirstSearch = (treeNode) => {
     console.log(treeNode)
 }
 
+// 
+
 const tree = getTree()
-depthFirstSearch(tree)
+depthFirstSearch(tree)  
