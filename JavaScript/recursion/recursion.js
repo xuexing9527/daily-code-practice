@@ -8,4 +8,5 @@ const factorialStrPrint = (n) => {
 }
 
 const n = 10
+// console logs：n * (n - 1) * (n - 2) * ... * 1 = n!
 console.log(`${factorialStrPrint(n)}${factorialRecursion(n)}`)
