@@ -1,4 +1,11 @@
-// factorial
-const recursion = (n) => n > 1 ? (n * recursion(n - 1)) : n
+// factorial recursion
+const factorialRecursion = (n) => n > 1 ? (n * factorialRecursion(n - 1)) : n
 
-console.log(recursion(10))
+const factorialStrPrint = (n) => {
+    let str = ''
+    Array.from({ length: n }, (_, i) => i !== n - 1 ? str += `${n - i} * ` : str += `${n - i} = `)
+    return str
+}
+
+const n = 10
+console.log(`${factorialStrPrint(n)}${factorialRecursion(n)}`)
