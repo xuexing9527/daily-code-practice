@@ -32,3 +32,5 @@ arr2.forEach((_, i) => console.log(i))
 // new Array(n) vs new Array(n).fill(undefined)
 // [ <n empty items> ] vs [ undefined, ..., undefined, ] 
 // n 个 empty items vs n 个 undefined 组成 的数组
+
+// new Array(10),新建了10个长度的数组，但没有任何元素。这里数组虽然有length，但不能迭代，因为没有元素。
