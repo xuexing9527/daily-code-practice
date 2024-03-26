@@ -14,7 +14,5 @@ const depthFirstSearch = (treeNode) => {
     console.log(treeNode)
 }
 
-// 
-
 const tree = getTree()
 depthFirstSearch(tree)  
