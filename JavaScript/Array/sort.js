@@ -1,12 +1,33 @@
-// Quick sort 生撸 失败版 ...
 const arr = [2, 4, 5, 1, 2, 3, 4, 0, 8, 9, 6, 5]
 
+const quickSort = (arr) => {
+    // recursion: peel onions -（递归：剥洋葱）
+    if (arr.length < 2) return arr
+    const pivot = arr[0]
+    arr.forEach((item, index) => {
+        if (item < pivot) {
+            // Splice to change array
+            arr.splice(index, 1)
+            arr.unshift(item)
+        }
+    })
+    // Splice to change array
+    const leftArr = arr.splice(0, arr.indexOf(pivot) + 1)
+    const rightArr = arr
+    return quickSort(leftArr).concat(quickSort(rightArr))
+}
+
+console.log('quickSort: ', quickSort(arr))
+
+
+
+// ------------------------ -----------------------------------
+// Quick sort 生撸 失败版 ...
 let targetArr = []
-const quickSort = (arr, baseNum) => {
+const quickSort_FAIL = (arr, baseNum) => {
     if (!arr.length || arr.length === 1) {
-        // console.log('finally', arr)
         targetArr = targetArr.concat(arr)
-        console.log('targetArr', targetArr)
+        console.log('quickSort_FAIL targetArr', targetArr)
         return
     }
 
@@ -26,4 +47,5 @@ const quickSort = (arr, baseNum) => {
     quickSort(arrFront, arrFront[0])
 }
 
-quickSort(arr, arr[0])
+quickSort_FAIL(arr, arr[0])
+// ------------------------ -----------------------------------
