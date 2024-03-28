@@ -2,11 +2,6 @@ const str1 = 'abcsamedef'
 const str2 = 'uvwxysameza'
 const str3 = 'zxcvbnmuvwxysamezaqwertyu'
 
-const printDpAndSameStrInfo = (dp, sameStrInfo) => {
-    console.log('dp: ', dp)
-    console.log('sameStrInfo: ', sameStrInfo)
-}
-
 const findSameStr = (str1, str2) => {
     const dp = new Array(str1.length).fill(0).map(_ => new Array(str2.length).fill(0))
     const sameStrInfo = {
@@ -18,7 +13,6 @@ const findSameStr = (str1, str2) => {
     for (let i = 0; i < str1.length; i += 1) {
         for (let r = 0; r < str2.length; r += 1) {
             if (str1[i] === str2[r]) {
-                // 防溢出
                 if (i > 0 && r > 0) {
                     dp[i][r] = dp[i - 1][r - 1] + 1
                     if (dp[i][r] > sameStrInfo.maxLength) {
@@ -33,7 +27,8 @@ const findSameStr = (str1, str2) => {
         }
     }
 
-    printDpAndSameStrInfo(dp, sameStrInfo) // This line just print
+    console.log('dp: ', dp)
+    console.log('sameStrInfo: ', sameStrInfo)
 
     return str1.substr(sameStrInfo.str1SameStrEndIndex - (sameStrInfo.maxLength - 1), sameStrInfo.maxLength)
 }
