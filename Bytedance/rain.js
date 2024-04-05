@@ -76,15 +76,15 @@ function getRain(arr) {
             }
         })
     }
-    console.log('rain', rain)
+    console.log('rains', rain)
     return rain
 }
 
-const arr = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1] // 6 滴
+// const arr = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1] // 6 滴
 // const arr = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 0, 1] // 6 滴
 // const arr = [0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 2, 1] // 8 滴
 // const arr = [0, 1, 0, 2, 1, 0, 1, 3, 0, 1, 2, 1] // 8 滴
-// const arr = [0, 1, 0, 2, 0, 0, 1, 3, 2, 1, 2, 1] // 7 滴
+const arr = [0, 1, 0, 2, 0, 0, 1, 3, 2, 1, 2, 1] // 7 滴
 
 getRain(arr)
 
@@ -92,16 +92,34 @@ getRain(arr)
 
 
 
-// 思考4: 待完成
-//      数组中没个数 - 最大值
-// 
-// 
+// 思考4: 
+//      一边找首尾的不为0的值，一边计算雨滴，简化下代码
 //         0
 //     0_ _00_0
 //  _0_00_000000 
-//  3 2 3 1 2 3 2 0 1 2 1 2
-// 
-// 
-// 
 // 
 
+function getRain2(arr) {
+    const lines = arr.slice().sort()[arr.length - 1]
+    const len = arr.length
+    let rains = 0
+
+    for (let i = 0; i < lines; i += 1) {
+        const obj = { firstItem: undefined, lastItem: undefined }
+        // 获取首尾
+        for (let m = 0, n = len - 1; m <= n; m += 1, n -= 1) {
+            if (arr[m] - i >= 1 && obj.firstItem === undefined) obj.firstItem = m 
+            if (arr[n] - i >= 1 && obj.lastItem === undefined) obj.lastItem = n
+        }
+        // 同时存在
+        if (obj.firstItem && obj.lastItem) {
+            // Remember item - 1
+            arr.slice(obj.firstItem, obj.lastItem + 1).map(item => item - i)
+                // 开始积累雨滴
+                .forEach(item => { if (item <= 0) rains += 1 })
+        }
+    }
+    return rains
+}
+
+console.log('rains', getRain2(arr))
