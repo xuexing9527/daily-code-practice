@@ -17,7 +17,7 @@ export default () => {
         }, 500)
 
         return () => {
-            clearInterval(intervalTimer.current)
+            clearInterval(intervalTimerRef.current)
         }
     }, [])
 
@@ -32,7 +32,6 @@ export default () => {
         return `${h}:${m}:${s}`
 
     })
-
 
     return <div>{ formatDate(new Date().getTime() - timerRef.current) }</div>
 }

@@ -1,11 +1,9 @@
-const getTree = require('../tree')
+const createTree = require('../tree')
 
-const tree1 = getTree()
-const tree2 = getTree()
-tree2.children[0].children[0].children[0].children[0].value = '我加入了一个值，这里发生了变化'
-tree2.children[0].children[0].children[0].children[0].key = '我改写了这个key'
-// console.log('tree1:', JSON.stringify(tree1, null, 2))
-// console.log('tree2:', JSON.stringify(tree2, null, 2))
+const tree1 = createTree(20)
+const tree2 = createTree(20)
+// tree2.children[0].children[0].children[0].children[0].value = '我加入了一个值，这里发生了变化'
+// tree2.children[0].children[0].children[0].children[0].key = '我改写了这个key'
 
 // 比较两颗 tree
 // 创建一个 递归 方法，逐层 递归，比较两棵树，求diff
