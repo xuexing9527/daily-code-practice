@@ -30,6 +30,7 @@
 function getRain(arr) {
     const time = new Date().getTime()
     const column = arr.length
+    // sort()方法默认转成字符串，进行 Unicode 排序
     const row = arr.slice().sort((a, b) => (a - b))[column - 1]
     let rain = 0
 
@@ -52,6 +53,7 @@ function getRain(arr) {
         })
 
         obj.lastIndex = arr.length - r
+        // 判断 首尾是否真的存在
         if (obj.firstIndex !== undefined && obj.lastIndex !== undefined) {
             const payloadArr = arr.slice(obj.firstIndex, obj.lastIndex)
             return payloadArr
@@ -106,7 +108,7 @@ function getRain2(arr) {
         // 同时存在
         if (obj.firstItem !== undefined && obj.lastItem !== undefined) {
             // Remember item - 1
-            arr.slice(obj.firstItem, obj.lastItem + 1).map(item => item - i)
+            arr.slice(obj.firstItem, obj.lastItem + 1).map(item => (item - i))
                 // 开始积累雨滴
                 .forEach(item => { if (item <= 0) rains += 1 })
         }
@@ -136,8 +138,8 @@ function getRain3(arr) {
         const obj = { firstIndex: undefined, lastIndex: undefined }
         const preLevelObj = levelStartAndEnd[n]
         if (preLevelObj) {
-            for (let i = 0; i < preLevelObj.lastIndex; i += 1) { if (arr[i] - n >= 1) { obj.firstIndex = i; break; }}  // 从 i 位置开始积累雨滴
-            for (let j = preLevelObj.lastIndex; j > 0; j -= 1) { if (arr[j] - n >= 1) { obj.lastIndex = j; break; }} // 到 j 位置 结束积累雨滴
+            for (let i = 0; i < preLevelObj.lastIndex; i += 1) { if (arr[i] - n >= 1) { obj.firstIndex = i; break; } }  // 从 i 位置开始积累雨滴
+            for (let j = preLevelObj.lastIndex; j > 0; j -= 1) { if (arr[j] - n >= 1) { obj.lastIndex = j; break; } } // 到 j 位置 结束积累雨滴
 
             // 积累雨滴
             if (obj.firstIndex < obj.lastIndex) {
@@ -157,8 +159,10 @@ function getRain3(arr) {
 // const arr = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 0, 1] // 6 滴
 // const arr = [0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 2, 1] // 8 滴
 // const arr = [0, 1, 0, 2, 1, 0, 1, 3, 0, 1, 2, 1] // 8 滴
-// const arr = [10000 ,0 ,999 , 10000] // 19001 滴
-const arr = new Array(1000000).fill(0).map(_ => parseInt(Math.random() * 10)) // n 滴
+// const arr = [10000, 0, 10000] // 10000 滴
+// const arr = [10000, 0, 10000, 0, 1] // 10001 滴
+// const arr = [10000, 0, 999, 0, 10000] // 20000 滴
+const arr = new Array(1000000).fill(0).map(item => parseInt(Math.random() * 10)) // n 滴
 
 console.log('getRains3 收集雨滴数：', getRain3(arr))
 console.log('getRains2 收集雨滴数：', getRain2(arr))
