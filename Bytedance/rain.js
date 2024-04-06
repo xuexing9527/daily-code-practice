@@ -30,7 +30,8 @@
 function getRain(arr) {
     const time = new Date().getTime()
     const column = arr.length
-    const row = arr.slice().sort()[column - 1]
+    // sort()方法默认转成字符串，进行 Unicode 排序
+    const row = arr.slice().sort((a, b) => (a - b))[column - 1]
     let rain = 0
 
     const handleArr = (arr) => {
@@ -52,8 +53,12 @@ function getRain(arr) {
         })
 
         obj.lastIndex = arr.length - r
-        const payloadArr = arr.slice(obj.firstIndex, obj.lastIndex)
-        return payloadArr
+        // 判断 首尾是否真的存在
+        if (obj.firstIndex !== undefined && obj.lastIndex !== undefined) {
+            const payloadArr = arr.slice(obj.firstIndex, obj.lastIndex)
+            return payloadArr
+        }
+        return []
     }
 
     // 每一次进入循环，数组要经过 去首尾 0， - i，再去 找首尾 0
@@ -89,7 +94,7 @@ function getRain(arr) {
 
 function getRain2(arr) {
     const time = new Date().getTime()
-    const lines = arr.slice().sort()[arr.length - 1]
+    const lines = arr.slice().sort((a, b) => (a - b))[arr.length - 1]
     const len = arr.length
     let rains = 0
 
@@ -101,9 +106,9 @@ function getRain2(arr) {
             if (arr[n] - i >= 1 && obj.lastItem === undefined) obj.lastItem = n
         }
         // 同时存在
-        if (obj.firstItem && obj.lastItem) {
+        if (obj.firstItem !== undefined && obj.lastItem !== undefined) {
             // Remember item - 1
-            arr.slice(obj.firstItem, obj.lastItem + 1).map(item => item - i)
+            arr.slice(obj.firstItem, obj.lastItem + 1).map(item => (item - i))
                 // 开始积累雨滴
                 .forEach(item => { if (item <= 0) rains += 1 })
         }
@@ -138,6 +143,9 @@ function getRain3(arr) {
             for (let m = preLevelObj.firstIndex, n = preLevelObj.lastIndex; m < n; m += 1, n -= 1) {
                 if (arr[m] - i >= 1 && obj.firstIndex === undefined) { obj.firstIndex = m } // 从 m 位置开始积累雨滴
                 if (obj.firstIndex !== undefined && (m > obj.firstIndex && arr[m] - i <= 0)) { levelRains += 1 } // obj.firstIndex 存在时，arr[m] - i 小于等于 0 且 大于 m 位置时 积累雨滴
+                // // TODO
+                // // 此处 n 的产生，可能在 逆向遍历中，也可能在正向 遍历中产生。比如，逆向遍历不存在n， 但是正向遍历m的时候，出现了符合条件的 n
+                // if (obj.firstIndex !== undefined && (m > obj.firstIndex && arr[m] - i >= 1)) { obj.lastIndex = m } // obj.firstIndex 存在时，arr[m] - i 小于等于 0 且 大于 m 位置时 积累雨滴
                 if (arr[n] - i >= 1 && obj.lastIndex === undefined) { obj.lastIndex = n } // 到 n 位置 结束积累雨滴，循环结束后，考虑 n 是否真的存在，如果不存在，当前层没有雨滴可接
                 if (obj.lastIndex !== undefined && (n < obj.lastIndex && arr[n] - i <= 0)) { levelRains += 1 } // obj.firstIndex 存在时，arr[m] - i 小于等于 0 且 大于 m 位置时 积累雨滴
             }
@@ -145,6 +153,8 @@ function getRain3(arr) {
             // 如果 m, n 相遇，没有合适的 m 或 n，舍弃当前层的雨滴。只有当 m, n 都存在时，levelRains 才成立
             if (obj.firstIndex !== undefined && obj.lastIndex !== undefined) {
                 levelStartAndEnd.push(obj) // 存入层级 obj，减少下次遍历的长度
+                console.log('obj', obj)
+                console.log('levelStartAndEnd', levelStartAndEnd)
                 const len = preLevelObj.lastIndex + 1 - obj.firstIndex
                 // 如果数组长度是奇数，判断中间节点是否满足接雨滴的条件
                 if (len % 2 !== 0) {
@@ -169,7 +179,9 @@ function getRain3(arr) {
 // const arr = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 0, 1] // 6 滴
 // const arr = [0, 1, 0, 2, 1, 0, 1, 0, 2, 1, 2, 1] // 8 滴
 // const arr = [0, 1, 0, 2, 1, 0, 1, 3, 0, 1, 2, 1] // 8 滴
-const arr = [10000 ,0 ,999 , 10000] // 7 滴
+// const arr = [10000, 0, 10000] // 10000 滴
+const arr = [10000, 0, 10000, 0, 1] // 10001 滴
+// const arr = [10000, 0, 999, 0, 10000] // 20000 滴
 // const arr = new Array(1000000).fill(0).map(item => parseInt(Math.random() * 10)) // n 滴
 
 console.log('getRains3 收集雨滴数：', getRain3(arr))
