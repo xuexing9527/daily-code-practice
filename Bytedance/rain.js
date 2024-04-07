@@ -161,7 +161,7 @@ function getRain3(arr) {
 // const arr = [0, 1, 0, 2, 1, 0, 1, 3, 0, 1, 2, 1] // 8 滴
 // const arr = [10000, 0, 10000] // 10000 滴
 // const arr = [10000, 0, 10000, 0, 1] // 10001 滴
-// const arr = [10000, 0, 999, 0, 10000] // 20000 滴
+// const arr = [10000, 0, 999, 0, 10000] // 29001 滴
 const arr = new Array(1000000).fill(0).map(item => parseInt(Math.random() * 10)) // n 滴
 
 console.log('getRains3 收集雨滴数：', getRain3(arr))
