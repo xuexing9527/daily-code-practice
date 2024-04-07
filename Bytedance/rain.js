@@ -170,4 +170,4 @@ console.log('getRains 收集雨滴数：', getRain(arr))
 
 // 总结：
 //  getRain2 和 getRain 是一样的思路，只是代码 getRain2 更清爽一些
-//  getRain3 优化掉 操作 arr 这部分时间复杂度 的环节
+//  getRain3 优化掉 操作 arr 这部分时间复杂度及空间复杂度 的环节
