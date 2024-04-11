@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS实现容器内垂直左右居中</title>
+    <style>
+        html {
+            font-size: 16px;
+        }
+
+        .flex-container {
+            width: 200px;
+            height: 200px;
+            display: flex;
+            border: 1px solid #aff;
+
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flex-middle-item {
+            width: 100px;
+            height: 60px;
+            background-color: aqua;
+        }
+
+        .sample-box {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h3>容器内垂直左右居中:</h3>
+        <div style="display: flex;">
+            <div class="sample-box">
+                <h5> 示例一: flex 布局实现</h5>
+                <div class="flex-container">
+                    <div class="flex-middle-item"
+                        style="font-size: 12px; display: flex; align-items: center; justify-content: center;">Middle
+                        item</div>
+                </div>
+            </div>
+            <div class="sample-box">
+                <h5> 示例二: 观察字体对齐</h5>
+                <div class="flex-container">
+                    <div class="flex-middle-item"
+                        style="font-size: 12px; display: flex; align-items: center; justify-content: center;">More words
+                        middle
+                        item</div>
+                </div>
+            </div>
+            <div class="sample-box">
+                <h5> 示例三: text-align: center;</h5>
+                <div class="flex-container">
+                    <div class="flex-middle-item"
+                        style="font-size: 12px; display: flex; align-items: center; text-align: center;">More words
+                        middle
+                        item</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p>实现方式:</p>
+            <div>&emsp;外层父元素桉如下 .flex-container 设置，子元素无需额外设置。</div>
+            <div>
+                &emsp;.flex-container {
+                <br>
+                &emsp;&emsp;display: flex;
+                <br>
+                &emsp;&emsp;align-items: center;
+                <br>
+                &emsp;&emsp;justify-content: center;
+                <br>
+                &emsp;}
+            </div>
+            <div>
+                <p>意外发现：</p>
+                <p>&emsp;示例一，示例二，示例三，三者在于对比，</p>
+                <p>&emsp;justify-content: center; 具有文本居中的能力。但是文本折行后，变成了左对齐（如示例2，只有justify-content: center; 未设置text-align: center;）。</p>
+                <p>&emsp;给示例三设置text-align: center; 无论文本折行与否，始终居中对齐。</p>
+            </div>
+            <p>&emsp;至于示例2为什么折行后会变成左对齐，暂未查到原因。还望知道原理的小伙伴不吝赐教，感激不尽！</p>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
