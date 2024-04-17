@@ -1,0 +1,16 @@
+{
+  "name": "typescript-daily-practice",
+  "version": "1.0.0",
+  "description": "TypeScript daily practice",
+  "main": "index",
+  "scripts": {
+    "test": "tsc -w"
+  },
+  "keywords": [
+    "TS",
+    "TypeScript",
+    "typescript"
+  ],
+  "author": "fengNian",
+  "license": "ISC"
+}
