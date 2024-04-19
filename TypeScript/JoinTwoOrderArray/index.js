@@ -33,6 +33,7 @@
 // 1 <= m + n <= 200
 // -109 <= nums1[i], nums2[j] <= 109
 let joinTwoOrderArrays;
-joinTwoOrderArrays = (arr1, m, arr2, n) => {
+
+joinTwoOrderArrays = (nums1, m, nums2, n) => {
     return arr1;
 };
