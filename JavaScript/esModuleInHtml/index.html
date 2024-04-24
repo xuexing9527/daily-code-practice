@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body></body>
+<script type="module" id="module1">
+     console.log(import.meta)
+    export default {
+        config: { defaultAttr1: 'default 属性在这里' }
+    }
+</script>
+<script type="module">
+     console.log(import.meta)
+    console.log(config)
+</script>
+</html>
