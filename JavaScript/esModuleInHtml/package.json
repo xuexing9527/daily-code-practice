@@ -1,0 +1,17 @@
+{
+  "name": "learn-es6-module",
+  "version": "1.0.0",
+  "description": "Learn es6 module in html",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node app.js",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "es6",
+    "module",
+    "html"
+  ],
+  "author": "xuexing",
+  "license": "ISC"
+}
