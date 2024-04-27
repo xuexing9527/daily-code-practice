@@ -4,8 +4,8 @@
   "description": "Learn es6 module in html",
   "main": "app.js",
   "scripts": {
-    "dev": "node app.js",
-    "start": "node app.js"
+    "dev": "node ./bin/app.js",
+    "start": "node ./bin/app.js"
   },
   "keywords": [
     "es6",

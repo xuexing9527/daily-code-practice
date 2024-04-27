@@ -1,3 +1,4 @@
+'use strict'
 export function fun() {
     console.log('I am module1 fun')
 }
