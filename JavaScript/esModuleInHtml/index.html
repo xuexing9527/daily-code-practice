@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body></body>
+<script src="./module1.js" type="module"></script>
+<script type="module" id="module1">
+    console.log(import.meta)
+    export default {
+        config: { defaultAttr1: 'default 属性在这里' }
+    }
+</script>
+<script type="module">
+    // 据说这里无法以模块化引入上面那个裸模块的代码。借助 window 去传递，则破坏了模块化。
+    // 我认为这是不够彻底的模块化，应该把这个问题做个改进
+    console.log(import.meta)
+    console.log(config)
+
+    import  { fun, fun1 } from './modlue1.js'
+    fun()
+    fun1()
+</script>
+
+</html>
