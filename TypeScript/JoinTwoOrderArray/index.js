@@ -1,4 +1,3 @@
-"use strict";
 // 给你两个按 非递减顺序 排列的整数数组 nums1 和 nums2，另有两个整数 m 和 n ，分别表示 nums1 和 nums2 中的元素数目。
 // 非递减意为：元素递增或者相等
 // 
@@ -32,8 +31,32 @@
 // 0 <= m, n <= 200
 // 1 <= m + n <= 200
 // -109 <= nums1[i], nums2[j] <= 109
-let joinTwoOrderArrays;
-
-joinTwoOrderArrays = (nums1, m, nums2, n) => {
-    return arr1;
+var joinTwoOrderArrays;
+// m = nums1.length; n = nums2.length
+joinTwoOrderArrays = function (nums1, m, nums2, n) {
+    // nums1 nums2 顺序是 从 小 到 大，左 小 右 大
+    // nums1 [1, 2, 3, 0, 0, 0]
+    // nums2 [2, 3, 4]
+    // 思路：比较 nums2 最大值 大于 nums1 的最大值，就放最右边
+    var i = m - n; // nums1 length
+    var r = n; // nums2 length
+    while (i > 0 && r > 0) {
+        // 比较最大值
+        if (nums2[r - 1] > nums1[i - 1]) {
+            nums1[m - 1] = nums2[r - 1];
+            r > 0 && (r -= 1);
+        }
+        else {
+            nums1[m - 1] = nums1[i - 1];
+            i > 0 && (i -= 1);
+        }
+        m -= 1;
+    }
+    console.log(nums1);
+    return nums1;
 };
+joinTwoOrderArrays([1, 2, 3, 0, 0, 0, 0], 7, [2, 5, 8, 9], 4);
+joinTwoOrderArrays([1, 2, 3, 5, 0, 0, 0], 7, [2, 5, 9], 3);
+joinTwoOrderArrays([1, 2, 3, 5, 7, 9, 0, 0, 0], 9, [2, 5, 9], 3);
+joinTwoOrderArrays([1, 2, 3, 0, 0, 0, 0, 0, 0], 9, [2, 5, 5, 7, 9, 9], 6);
+// 思考：这是三路快排的解法吗？我怎么觉得就是双指针比较最大值呢？[2024.05.03 10:03]
