@@ -46,8 +46,7 @@ joinTwoOrderArrays = (nums1, m, nums2, n) => {
         if (nums2[r - 1] > nums1[i - 1]) {
             nums1[m - 1] = nums2[r - 1];
             r > 0 && (r -= 1);
-        }
-        else {
+        } else {
             nums1[m - 1] = nums1[i - 1];
             i > 0 && (i -= 1);
         }
