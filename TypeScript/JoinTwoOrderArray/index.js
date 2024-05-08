@@ -33,14 +33,32 @@
 // 1 <= m + n <= 200
 // -109 <= nums1[i], nums2[j] <= 109
 let joinTwoOrderArrays;
-// m = nums1.length - nums2.length
-// n = nums2.length
-// nums1 的长度 = 合并后的长度，超过 起始 nums1 长度的数据补 nums2 长度 个数的 0
-// 思路分析：
-// nums1 = [2, 5, 8, 0, 0, 0, 0]
-// nums2 = [1, 4, 7, 9]
-// 据说是 3 路 快排，40 min 绕不出来，如果暴力解就成了 join 数组 + 快排，浪费了 m, n 参数及 nums1 的特殊长度了
+// m = nums1.length; n = nums2.length
 joinTwoOrderArrays = (nums1, m, nums2, n) => {
-    nums1.concat;
-    return [];
+    // nums1 nums2 顺序是 从 小 到 大，左 小 右 大
+    // nums1 [1, 2, 3, 0, 0, 0]
+    // nums2 [2, 3, 4]
+    // 思路：比较 nums2 最大值 大于 nums1 的最大值，就放最右边
+    let i = m - n; // nums1 length
+    let r = n; // nums2 length
+    while (i > 0 && r > 0) {
+        // 比较最大值
+        if (nums2[r - 1] > nums1[i - 1]) {
+            nums1[m - 1] = nums2[r - 1];
+            r > 0 && (r -= 1);
+        }
+        else {
+            nums1[m - 1] = nums1[i - 1];
+            i > 0 && (i -= 1);
+        }
+        m -= 1;
+    }
+    console.log(nums1);
+    return nums1;
 };
+joinTwoOrderArrays([1, 2, 3, 0, 0, 0, 0], 7, [2, 5, 8, 9], 4);
+joinTwoOrderArrays([1, 2, 3, 5, 0, 0, 0], 7, [2, 5, 9], 3);
+joinTwoOrderArrays([1, 2, 3, 5, 7, 9, 0, 0, 0], 9, [2, 5, 9], 3);
+joinTwoOrderArrays([1, 2, 3, 0, 0, 0, 0, 0, 0], 9, [2, 5, 5, 7, 9, 9], 6);
+// 思考：这是三路快排的解法吗？我怎么觉得就是双指针比较最大值呢？[2024.05.03 10:03]
+// 思考2: 这个 nums1 的长度是两个数组之和的具体应用场景是什么？也就是这道题解决的实际问题是什么？
