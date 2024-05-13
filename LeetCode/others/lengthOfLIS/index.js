@@ -52,6 +52,10 @@ var lengthOfLIS = function(nums) {
         dp[i] = 1
         for (let j = 0; j < i; j += 1) {
             if (nums[i] > nums[j]) {
+                // 仔细看，这里的 dp[i] 是通过 dp[j] 累加出来的
+                // 我起初理解 dp[j] 是 dp[i] 的 前一个
+                // 实际上，仔细观察此处 dp[i] 取值为，比 i 小的 j 中，任意 dp[j] + 1 中最大的一个
+                // 综上：dp[j] 为任意比 i 小的 dp[j]
                 dp[i] = Math.max(dp[i], dp[j] + 1)
             }
         }
@@ -59,7 +63,9 @@ var lengthOfLIS = function(nums) {
     return Math.max(...dp)
 }
 
-const nums = [10,9,2,5,3,4,7,101,18]
-
+const nums = [10, 9, 2, 5, 3, 4, 7, 101, 18]
 console.log(lengthOfLIS(nums))
+
+const nums2 = [10, 1, 3, 5, 6, 4, 9, 3, 2]
+console.log(lengthOfLIS(nums2))
 // 坦白：不看答案，写不出来。。。
