@@ -4,7 +4,6 @@
 // emitter.emit('click', '1', '2');
 // sub1.release(); // 单独释放
 
-
 class Emitter {
   constructor() {
     // 事件
