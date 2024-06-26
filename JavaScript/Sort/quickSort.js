@@ -24,6 +24,31 @@ const quickSort = (arr) => {
 
 console.log(quickSort(arr))
 // quickSort(arr)
+// 平均时间复杂度：O(log(n))
+
+
+// 去掉辅助数组的空间复杂度
+const QuickSortSpaticalComplexity = (arr) => {
+    if (arr.length < 2) return arr
+    if (arr.length > 1) {
+        const pivot = arr[0]
+        arr.forEach((item, index) => {
+            if (item < pivot) {
+                arr.splice(index, 1)
+                arr.unshift(item)
+            }
+        })
+        const index = arr.indexOf(pivot)
+        const frontArr = arr.splice(0, index)
+        arr.splice(0, 1) // splice pivot
+        return QuickSortSpaticalComplexity(frontArr).concat(pivot).concat(QuickSortSpaticalComplexity(arr)) 
+    }
+} 
+
+console.log('sc', QuickSortSpaticalComplexity(arr))
+// QuickSortSpaticalComplexity(arr)
+// 平均时间复杂度为：O(log(n))
+
 
 // 思考：
 // 问题一：见代码第五行, 是否能优化掉空数组 [] ，或者数组 length 为 1 的时候，进来的这一步？
