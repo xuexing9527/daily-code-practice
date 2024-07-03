@@ -1,0 +1,130 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /*  前端笔试题 1.使用Flexbox或Grid CSS，创建一个响应式的3列布局，其中每一列都有相等的宽度 并在较小屏幕尺寸时折叠成垂直堆叠的布局 */
+    .container {
+        width: 100vm;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .container .list-item {
+        width: 30%;
+        min-width: 300px;
+        border: 1px solid #aff;
+    }
+
+    /* 浮动布局配合 媒体查询 */
+
+</style>
+
+<script>
+
+    // 2.编写一个函数`deepClone(object)`，该函数可以深度克隆一个JavaScript对象。
+    const deepClone = (obj) => {
+        const newObj = {}
+        const recursion = (obj, newObj) => {
+            const isObjOrArray = (item) => Object.prototype.toString.call(item) === '[object Array]' || Object.prototype.toString.call(item) === '[object Object]'
+            // 满足数组或者对象
+            if (isObjOrArray(obj)) {
+                const clone = newObj || {}
+                // 遍历 key
+                for (const key in obj) {
+                    const item = obj[key]
+                    // obj.key
+                    if (Object.prototype.toString.call(item) === '[object Array]') {
+                        // 这里有层级
+                        clone[key] = []
+                        recursion(obj[key], clone[key])
+                    } else if (Object.prototype.toString.call(item) === '[object Object]') {
+                        clone[key] = {}
+                        recursion(obj[key], clone[key])
+                    } else {
+                        clone[key] = obj[key]
+                    }
+                }
+            }
+        }
+        recursion(obj, newObj)
+        return newObj
+    }
+
+    const old = { a: { b: 1, c: [1, 2, 3] }, d: 'd', e: null }
+    deepClone(old)
+
+    // 3.用js实现类似1个以上的React（/Vue）Hooks的功能 // 自定义 hooks
+
+    const useFetch = () => {
+        const [value, setValue] = useState('')
+        useEffect(() => {
+            // fetchData
+            fetcData().then((msg) => setValue(msg))
+        }, [])
+
+        return [value, setValue]
+    }
+
+// 4.分析给出的网页样本的加载时间，并提出至少三种减少初始加载时间的策略。
+    // https://gnlab.com/dashboard
+        // - https://gnlab.com/assets/index-cf3e7bba.js
+            // 问题一：js 文件加载 1.64s， 2.7M
+                // 方案：
+                    // 1. 这个 js 文件 拆分，webpack chunkSplice 拆分成小块，按需加载
+                    // 2. 采用 Gzip 压缩
+                        // 2.1 文本资源采用Gzip压缩，如 css js html，经查看只有 html 文档进行了 Gzip 压缩
+                        // 但其它文件较小，有一定提升，不好预估提升时间
+                // 效果：猜测能提升 70% 的时间左右， 0.7 * 1.6 = 1.1s
+            // 问题二： icon 图片可以改成 font 格式
+
+
+// 5.如何确保用户上传的文件不会对Web服务器造成安全风险？
+    // 对文件进行隔离管理，与 web 服务器独立维护
+    // 协议安全，采用https
+    // 对文件进行 md5 唯一性校验
+    // 做好资源及文件监控
+
+
+
+    // 面试暴露的问题:
+    // css 中 的层级属性
+
+    // js
+    //     Symbol
+
+    //     new 关键字 []
+    //     proto = Fn.prototype
+
+
+    // CSS 写的少 
+    // 自我评价， 加 node 爬虫 项目
+
+</script>
+
+<body>
+
+    <!-- /*  前端笔试题 1.使用Flexbox或Grid CSS，创建一个响应式的3列布局，其中每一列都有相等的宽度 并在较小屏幕尺寸时折叠成垂直堆叠的布局 */ -->
+    <div class="container">
+        <div class="list-item">列 1</div>
+        <div class="list-item">列 2</div>
+        <div class="list-item">列 3</div>
+    </div>
+</body>
+
+</html>
+
+react fiber 单向链表
+
+
+next 共享状态，useEffect，
+
+reflow repaint 的注意事项：
+
+TS 重载
+
+TS 范型约束
