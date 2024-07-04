@@ -1,14 +1,11 @@
+const { addListener } = require("process")
+
 const arr = ["flower", "flow", "flight"]
 
 // 最长公共子序列
 const fn = (arr) => {
-    // 找出数组中最短的一个字符串
-    const minLengthStr = arr.sort()[0]
-
-    let str = minLengthStr
 
     const allHasStr = (str) => {
-        console.log(str)
         let allHas = true
         arr.forEach(item => {
             if (item.indexOf(str) === -1) {
@@ -17,28 +14,38 @@ const fn = (arr) => {
         })
         return allHas
     }
-
-    if (str.length === 1 && allHasStr(str)) return str
     
-    let strReserve = str
+    // 找出数组中最短的一个字符串
+    const minLengthStr = arr.sort()[0]
 
     // 正向 反向
+    let str = minLengthStr
+    let strReserve = minLengthStr 
     let i = 0, r = str.length
-    while (str.length > 1 || strReserve > 1) {
+
+    if (str.length === 1 && allHasStr(str)) return str
+
+    while (str.length > 1 || strReserve.length > 1) {
+        console.log('str: ', str)
+        console.log('strReserve: ', strReserve)
         if (allHasStr(str)) {
             return str
-        } else if (allHasStr(strReserve)) {
+        } 
+        if (allHasStr(strReserve)) {
             return strReserve
-        } else {
-           // 两个字符串
-           str = str.slice(0, r)
-           r -= 1
-           strReserve = str.slice(i)
-           i += 1
-       }
+        }
+        r -= 1
+        // 两个字符串
+        str = str.slice(0, r)
+        i += 1
+        strReserve = strReserve.slice(i)
     }
 
     return ''
 }
 
 console.log(fn(arr))
+
+
+
+// http 缓存
