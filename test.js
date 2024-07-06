@@ -1,9 +1,9 @@
 const { addListener } = require("process")
 
-// const arr = ["flower", "flow", "flight"]
-// const arr = ["ower", "aboc", "deof"]
-// const arr = ["d", "d", "d"]
-const arr = ["flower", "eeeeeflow", "wwwwwwfloight"]
+// const arr = ["flower", "flow", "flight"] // fl
+// const arr = ["ower", "aboc", "deof"] // o
+// const arr = ["d", "d", "d"] // d
+const arr = ["flower", "eeeeeflow", "wwwwwwfloight"] // flo
 
 // 最长公共子字符串
 const fn = (arr) => {
