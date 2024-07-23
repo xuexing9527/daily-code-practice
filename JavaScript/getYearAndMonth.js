@@ -15,6 +15,8 @@ const fun = (arr) => {
     // 相差的月份
     const minusMonth = (endYear - startYear) * 12 + (endMonth - startMonth)
     const targetArr = arr.map(item => new Date(item))
+
+    // 八月份筛选归类到每个月，比如8月3天，{ xxxx-8: [xxxx-08-02, xxxx-08-04a, xxxx-08-09] }
     
     console.log('月份相差：', minusMonth)
     console.log('目标数组：', targetArr)
