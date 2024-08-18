@@ -15,5 +15,4 @@ class BinaryTree<T = Node> {
     constructor (props: T) {
         Object.assign(this, props)
     }
-
 }
