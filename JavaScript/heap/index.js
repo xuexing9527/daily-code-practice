@@ -51,10 +51,16 @@ const shiftDown = () => {
 
 }
 
+/**
+ * 获取第一个元素
+ */
 const peek = () => {
 
 }
 
-const pop = () => {
-
+/**
+ * 弹出末尾的元素
+ */
+const pop = (heap) => {
+    return heap.pop()
 }
