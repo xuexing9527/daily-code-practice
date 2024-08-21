@@ -32,7 +32,7 @@ const compare = (left, right) => (left - right)
 const shiftUp = (heap, node, index) => {
     const parentIndex = (index - 1) >>> 1
     const pNode = heap[parentIndex]
-    while (true) {
+    while (index > 0) {
         if (pNode && compare(pNode, node) > 0) {
             // 父节点大，交换位置，上浮
             heap[parentIndex] = node
@@ -45,22 +45,46 @@ const shiftUp = (heap, node, index) => {
 }
 
 /**
- * 下沉，当取出堆顶数据时，将堆尾数据放置到堆顶，进行下沉操作
- */
-const shiftDown = () => {
-
-}
-
-/**
  * 获取第一个元素
  */
-const peek = () => {
+const peek = (heap) => heap[0] || null
+
+/**
+ * 下沉，当取出堆顶数据时，将堆尾数据放置到堆顶，进行下沉操作。配合 pop 使用
+ * 复杂方法，细讲
+ * 
+ * 思考：如果下沉是从 第一个 往下沉，为什么还要传 i 呢？直接 shiftDown(heap, node) 就行呀？引出 i 的用途
+ * 
+ */
+const shiftDown = (heap, node, i) => {
+    let index = i
+    const length = heap.length
+    const halfLeangh = length >>> 1
 
 }
 
 /**
- * 弹出末尾的元素
+ * 弹出 第一个 元素，注意 js 中的 数组 API pop 出来的是最后一个值
+ * popFirst
  */
 const pop = (heap) => {
-    return heap.pop()
+    if (heap.length === 0) return null
+    // 理论上 pop 只需要吐出最后一个元素就行了，
+    // 本来可以直接  return heap[0]
+    // 这样引发的问题是，heap 第一个节点（根节点）弹出后，（heap 3个节点以上，弹出一个剩最少2个）树结构就散架了，成了两棵树。需要拼接起来
+    // 如何拼接？
+    // 1. 上位补位（空节点问题） 2. 从最后一个取，做下沉交换
+    // 取 第一 和 最后一个 节点
+
+    const first = heap[0]
+    const last = heap.pop()
+    // 这里解释下 first === last 的情况
+    // 1 个节点，first === last
+    // 大于 1 个节点， 这里有个小思路。如果 first === last
+        // pop 方法就直接 弹最后一个，中间不变。这种情况列举下：是 整个堆 的数据 都相等，取谁都一样那就取最后一个，既方便（省去下沉操作），又不改变堆的特性。（这里的省事操作，从现实角度看，同优先级的末尾节点比队首的节点先执行。既然在排队了，那就后进先出，解释这个 后进先出 的利弊） 可以直接 return first，heap 数组进行 pop 最后一个元素
+    if (first !== last) {
+        heap[0] = last; // 这一步，把首位(根节点位置） 赋值 last 节点，相当于 remove 了 first 节点，后最终 return first 完成 pop 过程【延申 js 的 pop 实现方式，slice，原理上下标是如何补位最优化的】
+        shiftDown(heap, last, 0) // 动手把 last 往下沉，把 最小节点 交换上来
+    }
+    return first
 }
