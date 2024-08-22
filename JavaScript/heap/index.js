@@ -59,8 +59,49 @@ const peek = (heap) => heap[0] || null
 const shiftDown = (heap, node, i) => {
     let index = i
     const length = heap.length
-    const halfLeangh = length >>> 1
+    const halfLeangth = length >>> 1
 
+    // index 左节点 2index + 1
+    // 右节点 2index + 2
+    // 2index + 2 <= length - 1
+    // => index <= (length - 3) / 2  => 因为 index <= length / 2 - 1.5，得出 index 一定小于 length / 2
+    // => index < length/2
+    // 所以只 比较 halfLength 就可以
+    // GitHub 提交记录参考: https://github.com/facebook/react/commit/316aa368654427270a53543cd3f4952746374596
+    while (index < halfLeangth) {
+        const leftIndex = 2 * index + 1
+        const left = heap[leftIndex]
+        const rightIndex = 2 * index + 2
+        const right = heap[rightIndex]
+        // 左边比 node 小
+        if (compare(left, node) < 0) {
+            // 首先右节点存在，右节点比左节点小
+            if (rightIndex < length && compare(right, left) < 0) {
+                // 交换 node 与 right
+                heap[index] = right
+                heap[rightIndex] = node
+                // 接力，传递 rightIndex 给 index 继续向下执行
+                index = rightIndex
+            } else {
+                // 左节点小
+                // 交换 node 与 left
+                heap[index] = left
+                heap[leftIndex] = node
+                // 接力，传递 leftIndex 给 index 继续向下执行
+                index = leftIndex
+            }
+            // left 节点比 node 大，right 节点比 node 小
+        } else if (compare(right, node) < 0) {
+            // 交换 node 与 right
+            heap[index] = right
+            heap[rightIndex] = node
+            // 接力，传递 rightIndex 给 index 继续向下执行
+            index = rightIndex
+        } else {
+            // left 节点，right节点都比 node 大，node为最小，直接 return
+            return
+        }
+    }
 }
 
 /**
@@ -81,7 +122,7 @@ const pop = (heap) => {
     // 这里解释下 first === last 的情况
     // 1 个节点，first === last
     // 大于 1 个节点， 这里有个小思路。如果 first === last
-        // pop 方法就直接 弹最后一个，中间不变。这种情况列举下：是 整个堆 的数据 都相等，取谁都一样那就取最后一个，既方便（省去下沉操作），又不改变堆的特性。（这里的省事操作，从现实角度看，同优先级的末尾节点比队首的节点先执行。既然在排队了，那就后进先出，解释这个 后进先出 的利弊） 可以直接 return first，heap 数组进行 pop 最后一个元素
+    // pop 方法就直接 弹最后一个，中间不变。这种情况列举下：是 整个堆 的数据 都相等，取谁都一样那就取最后一个，既方便（省去下沉操作），又不改变堆的特性。（这里的省事操作，从现实角度看，同优先级的末尾节点比队首的节点先执行。既然在排队了，那就后进先出，解释这个 后进先出 的利弊） 可以直接 return first，heap 数组进行 pop 最后一个元素
     if (first !== last) {
         heap[0] = last; // 这一步，把首位(根节点位置） 赋值 last 节点，相当于 remove 了 first 节点，后最终 return first 完成 pop 过程【延申 js 的 pop 实现方式，slice，原理上下标是如何补位最优化的】
         shiftDown(heap, last, 0) // 动手把 last 往下沉，把 最小节点 交换上来
