@@ -37,11 +37,19 @@ const shiftUp = (heap, node, index) => {
             // 父节点大，交换位置，上浮
             heap[parentIndex] = node
             heap[index] = pNode
+            index = parentIndex
         } else {
             // 父节点小于node，不必继续上浮
             return
         }
     }
+}
+
+const push = (heap, node) => {
+    const index = heap.length // 相当于追加到末尾
+    heap.push(node)
+    // 如果把 index 放在这里拿，就会变成 const index = heap.length - 1 // 这样多了一次运算，所以放在了上边。稍微绕了一下减少一次运算
+    shiftUp(heap, node, index)
 }
 
 /**
@@ -76,6 +84,7 @@ const shiftDown = (heap, node, i) => {
         // 左边比 node 小
         if (compare(left, node) < 0) {
             // 首先右节点存在，右节点比左节点小
+            // right < left < node
             if (rightIndex < length && compare(right, left) < 0) {
                 // 交换 node 与 right
                 heap[index] = right
@@ -85,6 +94,7 @@ const shiftDown = (heap, node, i) => {
             } else {
                 // 左节点小
                 // 交换 node 与 left
+                // left < right < node 
                 heap[index] = left
                 heap[leftIndex] = node
                 // 接力，传递 leftIndex 给 index 继续向下执行
