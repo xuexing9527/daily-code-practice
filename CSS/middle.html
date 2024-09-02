@@ -11,24 +11,39 @@
             font-size: 16px;
         }
 
-        .flex-container {
-            width: 200px;
-            height: 200px;
-            display: flex;
+        .common-box {
+            width: 280px;
+            min-height: 200px;
             border: 1px solid #aff;
+        }
+
+        .flex-container {
+            display: flex;
 
             align-items: center;
             justify-content: center;
         }
 
-        .flex-middle-item {
-            width: 100px;
-            height: 60px;
+        .middle-item {
+            width: 200px;
+            min-height: 80px;
+            text-align: center;
             background-color: aqua;
         }
 
         .sample-box {
             margin-right: 10px;
+        }
+
+        .position-container {
+            position: relative;
+        }
+
+        .position-middle-item {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
@@ -39,16 +54,16 @@
         <div style="display: flex;">
             <div class="sample-box">
                 <h5> 示例一: flex 布局实现</h5>
-                <div class="flex-container">
-                    <div class="flex-middle-item"
+                <div class="flex-container common-box">
+                    <div class="flex-middle-item middle-item"
                         style="font-size: 12px; display: flex; align-items: center; justify-content: center;">Middle
                         item</div>
                 </div>
             </div>
             <div class="sample-box">
                 <h5> 示例二: 观察字体对齐</h5>
-                <div class="flex-container">
-                    <div class="flex-middle-item"
+                <div class="flex-container common-box">
+                    <div class="flex-middle-item middle-item"
                         style="font-size: 12px; display: flex; align-items: center; justify-content: center;">More words
                         middle
                         item</div>
@@ -56,8 +71,8 @@
             </div>
             <div class="sample-box">
                 <h5> 示例三: text-align: center;</h5>
-                <div class="flex-container">
-                    <div class="flex-middle-item"
+                <div class="flex-container common-box">
+                    <div class="flex-middle-item middle-item"
                         style="font-size: 12px; display: flex; align-items: center; text-align: center;">More words
                         middle
                         item</div>
@@ -81,10 +96,30 @@
             <div>
                 <p>意外发现：</p>
                 <p>&emsp;示例一，示例二，示例三，三者在于对比，</p>
-                <p>&emsp;justify-content: center; 具有文本居中的能力。但是文本折行后，变成了左对齐（如示例2，只有justify-content: center; 未设置text-align: center;）。</p>
+                <p>&emsp;justify-content: center; 具有文本居中的能力。但是文本折行后，变成了左对齐（如示例2，只有justify-content: center;
+                    未设置text-align: center;）。</p>
                 <p>&emsp;给示例三设置text-align: center; 无论文本折行与否，始终居中对齐。</p>
             </div>
             <p>&emsp;至于示例2为什么折行后会变成左对齐，暂未查到原因。还望知道原理的小伙伴不吝赐教，感激不尽！</p>
+        </div>
+
+        <div>
+
+            <div class="sample-box">
+                <h5> 示例三: 定位布局实现</h5>
+                <div class="common-box position-container">
+                    { position: relative; }
+                    <div class="position-middle-item middle-item"
+                        style="text-align: left; font-size: 12px; padding-left: 12px;">
+                        {<br />
+                        &nbsp;&nbsp;position: absolute; <br />
+                        &nbsp;&nbsp;top: 50%; <br />
+                        &nbsp;&nbsp;left: 50%; <br />
+                        &nbsp;&nbsp;transform: translate(-50%, -50%); <br />
+                        }<br />
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
