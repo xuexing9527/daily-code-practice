@@ -10,4 +10,3 @@ const overLap = (arr1, arr2) => {
 
 console.log(overLap(arr1, arr2))
 console.log(overLap(arr2, arr1))
-
